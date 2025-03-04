@@ -1,0 +1,616 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Avatar Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            transition: width 0.3s;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: 3px solid #e8491d;
+            transition: background-color 0.3s, color 0.3s, border-bottom-color 0.3s;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        header .highlight,
+        header .current a {
+            color: #e8491d;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header a:hover {
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        /* Showcase */
+        #showcase {
+            min-height: 400px;
+            background: url('https://via.placeholder.com/1200x600') no-repeat center/cover;
+            text-align: center;
+            color: #fff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        #showcase p {
+            font-size: 20px;
+            animation: slideInUp 1s ease-out;
+        }
+
+        /* Skin Input Section */
+        #skinInputSection {
+            padding: 20px;
+            background-color: #333;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards 0.2s;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #skinInputSection label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        #skinInputSection input[type="text"],
+        #skinInputSection select,
+        #skinInputSection input[type="number"] {
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #555;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            background-color: #444;
+            color: #fff;
+            appearance: none; /* Remove default arrow */
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        #skinInputSection button {
+            background-color: #e8491d;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #skinInputSection button:hover {
+            background-color: #c5370f;
+        }
+
+        /* Generated Images */
+        #generatedImages {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #generatedImages img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            animation: scaleUp 0.5s ease-out;
+        }
+
+        #generatedImages img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Loading Screen */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .block {
+            width: 20px;
+            height: 20px;
+            background-color: #38b6ff;
+            margin: 2px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .block:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .block:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            border-top: 3px solid #e8491d;
+            transition: background-color 0.3s, color 0.3s, border-top-color 0.3s;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #ccc;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+    </style>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e8491d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c5370f;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Minecraft</span> Avatar Hub</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#">Home</a></li>
+                    <li><a href="status.html">Status</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1>Find Your Perfect Minecraft Avatar</h1>
+            <p>Explore, customize, and bring your Minecraft character to life!</p>
+        </div>
+    </section>
+
+    <section id="skinInputSection" class="container">
+        <div class="form-group">
+            <label for="playerName">Enter Player Name/UUID or Skin URL:</label>
+            <input type="text" id="playerName" placeholder="Player Name or UUID" class="form-control" value="Owner9953">
+        </div>
+
+        <div class="form-group">
+            <label for="renderType">Select Render Type:</label>
+            <select class="form-control" id="renderType" onchange="updateRenderCropOptions()">
+                <option value="default">Default</option>
+                <option value="marching">Marching</option>
+                <option value="walking">Walking</option>
+                <option value="crouching">Crouching</option>
+                <option value="crossed">Crossed</option>
+                <option value="criss_cross">Criss Cross</option>
+                <option value="ultimate">Ultimate</option>
+                <option value="isometric">Isometric</option>
+                <option value="head">Head</option>
+                <option value="custom">Custom</option>
+                <option value="cheering">Cheering</option>
+                <option value="relaxing">Relaxing</option>
+                <option value="trudging">Trudging</option>
+                <option value="cowering">Cowering</option>
+                <option value="pointing">Pointing</option>
+                <option value="lunging">Lunging</option>
+                <option value="dungeons">Dungeons</option>
+                <option value="facepalm">Facepalm</option>
+                <option value="sleeping">Sleeping</option>
+                <option value="dead">Dead</option>
+                <option value="archer">Archer</option>
+                <option value="kicking">Kicking</option>
+                <option value="mojavatar">Mojavatar</option>
+                <option value="reading">Reading</option>
+                <option value="high_ground">High Ground</option>
+                <option value="bitzel">Bitzel</option>
+                <option value="pixel">Pixel</option>
+                <option value="ornament">Ornament</option>
+                <option value="skin">Skin</option>
+                <option value="profile">Profile</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="renderCrop">Select Render Crop:</label>
+            <select class="form-control" id="renderCrop">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="skinType">Select Skin Type:</label>
+            <select class="form-control" id="skinType">
+                <option value="wide" selected>Wide</option>
+                <option value="slim">Slim</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="isBedrockPlayer">Is Bedrock Player?</label>
+            <select class="form-control" id="isBedrockPlayer">
+                <option value="no">No</option>
+                <option value="yes" selected>Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="capeEnabled">Enable Cape?</label>
+            <select class="form-control" id="capeEnabled">
+                <option value="true" selected>Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cameraFOV">Camera FOV:</label>
+            <input type="number" id="cameraFOV" class="form-control" value="75">
+        </div>
+
+        <div class="form-group">
+            <label for="borderHighlight">Enable Border Highlight?</label>
+            <select class="form-control" id="borderHighlight">
+                <option value="false" selected>No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="borderHighlightColor">Border Highlight Color:</label>
+            <input type="color" id="borderHighlightColor" class="form-control" value="#ffffff">
+        </div>
+
+        <div class="form-group">
+            <label for="borderHighlightRadius">Border Highlight Radius:</label>
+            <input type="number" id="borderHighlightRadius" class="form-control" value="3">
+        </div>
+
+        <div class="form-group">
+            <label for="dropShadow">Enable Drop Shadow?</label>
+            <select class="form-control" id="dropShadow">
+                <option value="false" selected>No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+
+        <button onclick="generateImage()" class="btn btn-primary">Generate Avatar Image</button>
+        <div id="generatedImages">
+            <!-- Generated image will appear here -->
+        </div>
+        <button onclick="downloadImage()" class="btn btn-success" style="display:none;" id="downloadButton">Download Avatar</button>
+    </section>
+    <div id="loadingScreen" style="display:none;">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Minecraft Avatar Hub</p>
+            <p>Made with 💖 by <a href="https://eer.su/Owner">Owner9953</a></p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let generatedImageUrl = null;
+        function generateImage() {
+            let playerName = document.getElementById("playerName").value;
+            let isBedrockPlayer = document.getElementById("isBedrockPlayer").value === "yes";
+
+            // Check if playerName is a URL
+            if (playerName.startsWith("http://") || playerName.startsWith("https://")) {
+                // If it's a URL, disable isBedrockPlayer and set it to "no"
+                document.getElementById("isBedrockPlayer").value = "no";
+                isBedrockPlayer = false; // Ensure isBedrockPlayer is false for the rest of the function
+            }
+
+            if (isBedrockPlayer && !playerName.startsWith(".")) {
+                playerName = "." + playerName;
+            }
+
+            var renderType = document.getElementById("renderType").value;
+            var renderCrop = document.getElementById("renderCrop").value;
+            let skinType = document.getElementById("skinType").value;
+            let capeEnabled = document.getElementById("capeEnabled").value === "true";
+            let cameraFOV = document.getElementById("cameraFOV").value;
+            let borderHighlight = document.getElementById("borderHighlight").value === "true";
+            let borderHighlightColor = document.getElementById("borderHighlightColor").value.substring(1); // Remove '#'
+            let borderHighlightRadius = document.getElementById("borderHighlightRadius").value;
+            let dropShadow = document.getElementById("dropShadow").value === "true";
+
+            let imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/${playerName}/${renderCrop}?capeEnabled=${capeEnabled}&cameraFOV=${cameraFOV}` +
+                `&borderHighlight=${borderHighlight}` +
+                `&borderHighlightColor=${borderHighlightColor}` +
+                `&borderHighlightRadius=${borderHighlightRadius}` +
+                `&dropShadow=${dropShadow}`;
+
+            // Check if playerName is a URL
+            if (playerName.startsWith("http://") || playerName.startsWith("https://")) {
+                imageUrl = `https://starlightskins.lunareclipse.studio/render/${renderType}/custom/full?skinUrl=${playerName}&capeEnabled=${capeEnabled}&cameraFOV=${cameraFOV}` +
+                    `&borderHighlight=${borderHighlight}` +
+                    `&borderHighlightColor=${borderHighlightColor}` +
+                    `&borderHighlightRadius=${borderHighlightRadius}` +
+                    `&dropShadow=${dropShadow}`;
+            } else {
+
+            }
+
+            var generatedImagesDiv = document.getElementById("generatedImages");
+            generatedImagesDiv.innerHTML = "";
+
+            var img = document.createElement("img");
+            img.alt = `Skin Render - ${playerName}`;
+            var downloadButton = document.getElementById("downloadButton");
+            var loadingScreen = document.getElementById("loadingScreen");
+            loadingScreen.style.display = "flex";
+
+            img.onload = function() {
+                generatedImagesDiv.appendChild(img);
+                loadingScreen.style.display = "none";
+            };
+
+            img.onerror = function() {
+                downloadButton.style.display = "none";
+                loadingScreen.style.display = "none";
+                alert("Error generating image. Please check the player name and render settings.");
+            };
+
+            img.src = imageUrl;
+            generatedImageUrl = imageUrl;
+            downloadButton.style.display = "inline-block";
+        }
+
+        function downloadImage() {
+            if (!generatedImageUrl) {
+                alert("No image to download. Please generate an image first.");
+                return;
+            }
+
+            fetch(generatedImageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'minecraft_avatar.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                })
+                .catch(() => alert("Failed to download image."));
+        }
+
+        function updateRenderCropOptions() {
+            var renderType = document.getElementById("renderType").value;
+            var renderCropSelect = document.getElementById("renderCrop");
+            renderCropSelect.innerHTML = ""; // Clear existing options
+
+            var cropOptions = getCropOptions(renderType);
+
+            for (var i = 0; i < cropOptions.length; i++) {
+                var option = document.createElement("option");
+                option.value = cropOptions[i];
+                option.text = cropOptions[i].charAt(0).toUpperCase() + cropOptions[i].slice(1); // Capitalize first letter
+                renderCropSelect.appendChild(option);
+            }
+        }
+
+        function getCropOptions(renderType) {
+            switch (renderType) {
+                case "default":
+                case "marching":
+                case "walking":
+                case "crouching":
+                case "crossed":
+                case "criss_cross":
+                case "ultimate":
+                case "dungeons":
+                case "facepalm":
+                case "archer":
+                case "kicking":
+                case "high_ground":
+                case "bitzel":
+                case "pixel":
+                    return ["full", "bust", "face"];
+                case "isometric":
+                    return ["full", "bust", "face", "head"];
+                case "head":
+                case "ornament":
+                    return ["full"];
+                case "custom":
+                case "cheering":
+                case "relaxing":
+                case "trudging":
+                case "cowering":
+                case "pointing":
+                case "lunging":
+                case "reading":
+                    return ["full", "bust", "face"];
+                case "sleeping":
+                    return ["full", "bust"];
+                case "dead":
+                    return ["full", "bust", "face"];
+                case "mojavatar":
+                    return ["full", "bust"];
+                case "skin":
+                    return ["default", "processed", "barebones"];
+                case "profile":
+                    return ["full", "bust", "face"];
+                default:
+                    return ["full"];
+            }
+        }
+
+        // Initialize render crop options on page load
+        updateRenderCropOptions();
+        generateImage();
+    </script>
+</body>
+
+</html>

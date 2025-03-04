@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Status - Minecraft Avatar Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #222;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            transition: width 0.3s;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: 3px solid #e8491d;
+            transition: background-color 0.3s, color 0.3s, border-bottom-color 0.3s;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        header ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        header .highlight,
+        header .current a {
+            color: #e8491d;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header a:hover {
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        /* Status Section */
+        #statusSection {
+            padding: 20px;
+            background-color: #333;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards 0.2s;
+        }
+
+        #statusSection h2 {
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+
+        #statusTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #statusTable th,
+        #statusTable td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #statusTable th {
+            background-color: #444;
+        }
+
+        #statusTable tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-online {
+            color: #00ff00;
+            animation: pulseStatus 1.5s infinite;
+        }
+
+        .status-offline {
+            color: #ff0000;
+            animation: shakeStatus 0.8s infinite;
+        }
+
+        .status-unknown {
+            color: #ffff00;
+            animation: blinkStatus 1s linear infinite;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            border-top: 3px solid #e8491d;
+            transition: background-color 0.3s, color 0.3s, border-top-color 0.3s;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #ccc;
+        }
+
+        /* Keyframes for Status Animations */
+        @keyframes pulseStatus {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shakeStatus {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        @keyframes blinkStatus {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Fade-in animation for the section */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e8491d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c5370f;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Minecraft</span> Avatar Hub</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="current"><a href="#">Status</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="statusSection" class="container">
+        <h2>Service Status</h2>
+        <table id="statusTable">
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>API</td>
+                    <td id="apiStatus" class="status-unknown">Checking...</td>
+                </tr>
+                <tr>
+                    <td>Image Rendering</td>
+                    <td id="renderStatus" class="status-unknown">Checking...</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer style="position: fixed; bottom: 0; width: 100%;">
+        <div class="container">
+            <p>&copy; 2024 Minecraft Avatar Hub</p>
+            <p>Made with 💖 by <a href="https://eer.su/Owner">Owner9953</a></p>
+        </div>
+    </footer>
+
+    <script>
+        async function checkStatus() {
+            try {
+                const response = await fetch('https://starlightskins.lunareclipse.studio/');
+                if (response.ok) {
+                    document.getElementById('apiStatus').textContent = 'Online';
+                    document.getElementById('apiStatus').className = 'status-online';
+                    document.getElementById('renderStatus').textContent = 'Online';
+                    document.getElementById('renderStatus').className = 'status-online';
+                } else {
+                    document.getElementById('apiStatus').textContent = 'Offline';
+                    document.getElementById('apiStatus').className = 'status-offline';
+                    document.getElementById('renderStatus').textContent = 'Offline';
+                    document.getElementById('renderStatus').className = 'status-offline';
+                }
+            } catch (error) {
+                console.error('Error checking status:', error);
+                document.getElementById('apiStatus').textContent = 'Unknown';
+                document.getElementById('apiStatus').className = 'status-unknown';
+                document.getElementById('renderStatus').textContent = 'Unknown';
+                document.getElementById('renderStatus').className = 'status-unknown';
+            }
+        }
+
+        // Call checkStatus when the page loads
+        window.onload = checkStatus;
+    </script>
+</body>
+
+</html>
