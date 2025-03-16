@@ -1,3 +1,4 @@
+
 <html lang="en">
 
 <head>
@@ -447,7 +448,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Minecraft Avatar Hub</p>
-            <p>Made with 💖 by <a href="https://eer.su/Owner">Owner9953</a>
+            <p>Made with &hearts; by <a href="https://eer.su/Owner">Owner9953</a>
                 <br>
               API Provided by <a href="https://lunareclipse.studio/"> Lunar Eclipse Studio</a>
             </p>
@@ -514,6 +515,7 @@
             img.onload = function() {
                 generatedImagesDiv.appendChild(img);
                 loadingScreen.style.display = "none";
+                updateFavicon(imageUrl);
             };
 
             img.onerror = function() {
@@ -613,6 +615,16 @@
         // Initialize render crop options on page load
         updateRenderCropOptions();
         generateImage();
+
+        function updateFavicon(imageUrl) {
+            var link = document.querySelector("link[rel='icon']");
+            if (!link) {
+                link = document.createElement('link');
+                link.rel = 'icon';
+                document.head.appendChild(link);
+            }
+            link.href = imageUrl;
+        }
     </script>
 </body>
 
